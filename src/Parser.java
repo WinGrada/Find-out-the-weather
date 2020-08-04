@@ -13,17 +13,11 @@ import java.util.regex.Pattern;
 public class Parser {
 
 
-    public String getUrl() { return url; }
-
-    private void setUrl(String url) { this.url = url; }
-
     private String url = "https://world-weather.ru/pogoda/uzbekistan/";
-
-    public Map<String, String> getCityToCityUrl() { return cityToCityUrl; }
 
     private Map<String, String> cityToCityUrl = new HashMap<String, String>();
 
-
+    // Временая переменная
     public String cityAngren = "https://world-weather.ru/pogoda/uzbekistan/angren/";
 
 
@@ -44,14 +38,14 @@ public class Parser {
         Document doc = Jsoup.connect(cityUrl).userAgent("Mozilla").get();
         String pageWeather = doc.select("ul[class=tabs tabs-db]").toString();
         
-
+        //TODO Дописать эту функцию, она должна записывать погоду города в список.
 
     }
 
     private void GetDataFromPageWeather(String pageWeather) throws Exception {
         Pattern pattern = Pattern.compile("(\\d{2}.\\d{2})");
         Matcher matcher = pattern.matcher(pageWeather);
-
+        //TODO функция должна возвращать всю дату, а не только первую.
 //        if (matcher.find()){
 //            return matcher.group();
 //        }
