@@ -1,8 +1,18 @@
 public class Button {
 
-    private void ShowDefaultButtons(){
+    public int getIdButton() {
+        return idButton;
+    }
+
+    public void setIdButton(int idButton) {
+        this.idButton = idButton;
+    }
+
+    private int idButton;
+
+    public void ShowDefaultButtons(){
         System.out.println("Нажмите кнопку:");
-        System.out.println("1 - Назад");
+        System.out.println("1 - В главное меню");
         System.out.println("2 - Завершить программу");
     }
 
@@ -12,5 +22,15 @@ public class Button {
 
     public void ExitButton(){
         System.exit(0);
+    }
+
+    public void BackToMainMenuButton(){
+        ShowDefaultButtons();
+        ShowStartButtons();
+    }
+
+    public void FindOutWeatherButton(){
+        //TODO: Переход к методу которы находит погоду.
+        System.out.println("Погода");
     }
 }

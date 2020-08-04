@@ -2,23 +2,33 @@ import java.util.Scanner;
 
 public class Menu {
 
-    private Button button = new Button();
+    public Menu(Button button) {
+        this.button = button;
+    }
+
+    private final Button button;
+
 
     public void StartMenu() throws Exception {
-        while (true){
-            //TODO: отсюда идет запуск программы, и вызов всех основных функций для меню
-            break;
+        while (true) {
+            button.ShowDefaultButtons();
+            button.ShowStartButtons();
+
+            button.setIdButton(GetIdButtonFromUser());
+
+            ProcessButtonId(button.getIdButton());
+
+
 
         }
     }
 
     private void ProcessButtonId(int idButton){
-        switch (idButton){
-            case 2:
-                button.ExitButton();
-                break;
-            default:
-                break;
+        switch (idButton) {
+            case 1 -> button.BackToMainMenuButton();
+            case 2 -> button.ExitButton();
+            case 3 -> button.FindOutWeatherButton();
+            default -> System.out.println("Такой кнопки не существует");
         }
     }
 
