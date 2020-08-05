@@ -40,7 +40,7 @@ public class Button {
     }
 
     public void WriteDataToFileButton(){
-        parser.WrtiteDataOfWeatherToFile();
+        parser.WriteDataOfWeatherToFile();
     }
 
     public void FaqButton(){

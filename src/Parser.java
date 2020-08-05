@@ -4,6 +4,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -14,12 +15,13 @@ public class Parser {
 
 
     private String url = "https://world-weather.ru/pogoda/uzbekistan/";
+    private String dataDays;
+    private String temperatureAtMorning;
+    private String temperatureAtNight;
 
-    private Map<String, String> cityToCityUrl = new HashMap<String, String>();
-
-    // Временая переменная
-    public String cityAngren = "https://world-weather.ru/pogoda/uzbekistan/angren/";
-
+    private Map<String, String> cityToUrlCity = new HashMap<String, String>();
+    private Map<String, String> datesToWeather = new HashMap<String, String>();
+    private Map<String, String> daysOfWeekToWeather = new HashMap<String, String>();
 
     public void GetUrlCities(String url) throws IOException {
         Document doc = Jsoup.connect(url).userAgent("Mozilla").get();
@@ -29,30 +31,43 @@ public class Parser {
             String cityUrl = l.select("a").attr("href");
             String cityName = l.select("a[class=tooltip]").text();
 
-            cityToCityUrl.put(cityName, "https:"+cityUrl);
+            cityToUrlCity.put(cityName, "https:"+cityUrl);
 
         }
     }
 
-    public void GetCityWeather(String cityUrl) throws Exception {
+    private void GetDataWeather(String cityUrl) throws Exception {
         Document doc = Jsoup.connect(cityUrl).userAgent("Mozilla").get();
-        String pageWeather = doc.select("ul[class=tabs tabs-db]").toString();
-        
-        //TODO Дописать эту функцию, она должна записывать погоду города в список.
+        Elements WeatherDataBlock = doc.select("div[id=defSet-3]");
+
+        dataDays = WeatherDataBlock.attr("data-days");
+        temperatureAtMorning = WeatherDataBlock.attr("data-td");
+        temperatureAtNight = WeatherDataBlock.attr("data-tn");
+    }
+
+    private void SplitWeatherDataByDay(){
+
+        String[] arrDataDays = dataDays.split(",");
+        String[] arrTemperatureAtMorning = temperatureAtMorning.split(",");
+        String[] arrTemperatureAtNight = temperatureAtNight.split(",");
+
+        ArrayList<String> dates = new ArrayList<>();
+        ArrayList<String> daysOfWeek = new ArrayList<>();
+        ArrayList<String> dayTemperature = CombineTemperature(arrTemperatureAtMorning, arrTemperatureAtNight);
+
 
     }
 
-    private void GetDataFromPageWeather(String pageWeather) throws Exception {
-        Pattern pattern = Pattern.compile("(\\d{2}.\\d{2})");
-        Matcher matcher = pattern.matcher(pageWeather);
-        //TODO функция должна возвращать всю дату, а не только первую.
-//        if (matcher.find()){
-//            return matcher.group();
-//        }
-//        throw new Exception("Дата не найдена!");
+    public ArrayList<String> CombineTemperature(String[] morningTemp, String[] nightTemp){
+        ArrayList<String> dayTemperature = new ArrayList<>();
+        for (int i = 0; i < morningTemp.length; i++){
+            dayTemperature.add("Температура днем: "+morningTemp[i]+
+                               "\tТемпература ночью: "+nightTemp[i]);
+        }
+        return dayTemperature;
     }
 
-    public void WrtiteDataOfWeatherToFile(){
+    public void WriteDataOfWeatherToFile(){
         //TODO дописать этот метод
         System.out.println("Идет запись в файл");
     }
