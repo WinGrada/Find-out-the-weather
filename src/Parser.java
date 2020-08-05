@@ -51,5 +51,10 @@ public class Parser {
 //        }
 //        throw new Exception("Дата не найдена!");
     }
+
+    public void WrtiteDataOfWeatherToFile(){
+        //TODO дописать этот метод
+        System.out.println("Идет запись в файл");
+    }
 }
 

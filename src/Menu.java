@@ -2,32 +2,29 @@ import java.util.Scanner;
 
 public class Menu {
 
-    public Menu(Button button) {
+    public Menu(Button button, Parser parser) {
         this.button = button;
+        this.parser = parser;
     }
 
     private final Button button;
+    private  final Parser parser;
 
 
-    public void StartMenu() throws Exception {
-        while (true) {
-            button.ShowDefaultButtons();
-            button.ShowStartButtons();
-
+    public void StartMainMenu() throws Exception {
+        while (!button.isFlag_exit()) {
+            button.ShowMainMenuButtons();
             button.setIdButton(GetIdButtonFromUser());
-
             ProcessButtonId(button.getIdButton());
-
-
-
         }
     }
 
     private void ProcessButtonId(int idButton){
         switch (idButton) {
-            case 1 -> button.BackToMainMenuButton();
-            case 2 -> button.ExitButton();
-            case 3 -> button.FindOutWeatherButton();
+            case 1 -> button.FindOutWeatherButton();
+            case 2 -> button.WriteDataToFileButton();
+            case 3 -> button.ExitButton();
+            case 4 -> button.FaqButton();
             default -> System.out.println("Такой кнопки не существует");
         }
     }
@@ -40,7 +37,6 @@ public class Menu {
 
     private int GetIdButtonFromUser() throws Exception {
         Scanner in = new Scanner(System.in);
-        System.out.print("Введите ваш выбор: ");
         if(in.hasNextInt()){
             return in.nextInt();
         }
