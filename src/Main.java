@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 public class Main {
@@ -12,9 +9,7 @@ public class Main {
         Parser parser = new Parser();
         Button button = new Button(parser);
         Menu menu = new Menu(button, parser);
-//        menu.StartMainMenu();
-
-
+        menu.StartMainMenu();
 
     }
 }

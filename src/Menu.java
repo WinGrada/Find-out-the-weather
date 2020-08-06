@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Menu {
@@ -16,12 +17,21 @@ public class Menu {
             button.ShowMainMenuButtons();
             button.setIdButton(GetIdButtonFromUser());
             ProcessButtonId(button.getIdButton());
+
+            String dateOrDayOfWeek = GetDateOrDayOfWeekFromUser();
+            if (dateOrDayOfWeek.length() == 2){
+                System.out.println(parser.daysOfWeekToWeather.get(dateOrDayOfWeek));
+            }
+            else if (dateOrDayOfWeek.length() == 5){
+                System.out.println(parser.datesToWeather.get(dateOrDayOfWeek));
+            }
+
         }
     }
 
-    private void ProcessButtonId(int idButton){
+    private void ProcessButtonId(int idButton) throws Exception {
         switch (idButton) {
-            case 1 -> button.FindOutWeatherButton();
+            case 1 -> button.FindOutWeatherButton(GetCityFromUser());
             case 2 -> button.WriteDataToFileButton();
             case 3 -> button.ExitButton();
             case 4 -> button.FaqButton();
@@ -29,6 +39,11 @@ public class Menu {
         }
     }
 
+    private String GetDateOrDayOfWeekFromUser(){
+        Scanner in = new Scanner(System.in);
+        System.out.print("Введи дату или день недели: ");
+        return in.nextLine();
+    }
     private String GetCityFromUser(){
         Scanner in = new Scanner(System.in);
         System.out.print("Введи город, чтобы узнать погоду: ");

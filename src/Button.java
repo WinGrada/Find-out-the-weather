@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 public class Button {
 
     public Button(Parser parser) {
@@ -34,10 +36,10 @@ public class Button {
         flag_exit = true;
     }
 
-    public void FindOutWeatherButton(){
-        //TODO: Переход к методу которы находит погоду.
-        System.out.println("Погода");
+    public void FindOutWeatherButton(String cityName) throws Exception {
+        parser.StartParseWeather(cityName);
     }
+
 
     public void WriteDataToFileButton(){
         parser.WriteDataOfWeatherToFile();
