@@ -21,15 +21,25 @@ public class Parser {
     public Map<String, String> datesToWeather = new HashMap<String, String>();
     public Map<String, String> daysOfWeekToWeather = new HashMap<String, String>();
 
+    public boolean isExistKey() {
+        return existKey;
+    }
+    private boolean existKey = true;
+
     public void StartParseWeather(String cityName) throws Exception {
-        String url = "https://world-weather.ru/pogoda/uzbekistan/";
-        GetUrlCities(url); // Заполняет cityToUrlCity.
+        GetUrlCities(); // Заполняет cityToUrlCity.
+        if (!cityToUrlCity.containsKey(cityName)){
+            existKey = false;
+            System.out.println("\n****Такого города нет в списке!****");
+            return;
+        }
         GetDataWeather(cityToUrlCity.get(cityName)); //Заполняет dataDays, temperatureAtMorning, temperatureAtNight
         SplitWeatherDataByDay(); // Заполняет datesToWeather, daysOfWeekToWeather
 
     }
 
-    private void GetUrlCities(String url) throws IOException {
+    private void GetUrlCities() throws IOException {
+        String url = "https://world-weather.ru/pogoda/uzbekistan/";
         Document doc = Jsoup.connect(url).userAgent("Mozilla").get();
         Elements links = doc.select("a[class=tooltip]");
 
@@ -110,5 +120,19 @@ public class Parser {
         return  dataDays;
     }
 
+    public void ShowListCities() throws IOException {
+        GetUrlCities();
+        int cnt = 0;
+        for (var city : cityToUrlCity.keySet()){
+            if ((cnt % 2) == 0){
+                System.out.printf("%-20s", city);
+                cnt++;
+            }
+            else {
+                System.out.printf("%-15s %n", city);
+                cnt++;
+            }
+        }
+    }
 }
 

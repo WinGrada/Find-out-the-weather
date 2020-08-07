@@ -30,8 +30,8 @@ public class Button {
         System.out.println("\n======================================================");
         System.out.println("\t\tПрограмма - Погода рядом!");
         System.out.println("------------------------------------------------------");
-        System.out.println("1) Узнать погоду \t\t\t2) Записать данные о погоде в файл");
-        System.out.println("3) Завершить программу \t\t4) FAQ - Как пользоваться программой");
+        System.out.println("1) Узнать погоду \t\t\t2) *Города в которых можно узнать погоду");
+        System.out.println("3) Завершить программу ");
         System.out.println("======================================================");
         System.out.print("> Выберите свой вариант: ");
     }
@@ -44,13 +44,8 @@ public class Button {
         parser.StartParseWeather(cityName);
     }
 
-
-    public void WriteDataToFileButton(){
-       // TODO переход к методу который записывает в файл погоду
+    public void ShowListCitiesButton() throws IOException {
+        parser.ShowListCities();
     }
 
-    public void FaqButton(){
-        System.out.println("FAQ - Информация");
-        System.out.println("");
-    }
 }

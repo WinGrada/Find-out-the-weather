@@ -20,6 +20,7 @@ public class Menu {
 
             if(button.isFlag_exit()){ continue; }
             if(button.getIdButton() != 1) { continue; }
+            if(!parser.isExistKey()) { continue; }
 
             String dateOrDayOfWeek = GetDateOrDayOfWeekFromUser();
             if (dateOrDayOfWeek.length() == 2){
@@ -35,9 +36,8 @@ public class Menu {
     private void ProcessButtonId(int idButton) throws Exception {
         switch (idButton) {
             case 1 -> button.FindOutWeatherButton(GetCityFromUser());
-            case 2 -> button.WriteDataToFileButton();
+            case 2 -> button.ShowListCitiesButton();
             case 3 -> button.ExitButton();
-            case 4 -> button.FaqButton();
             default -> {
                 System.out.println("Такой кнопки не существует");
                 button.setFlag_exit(true);
@@ -47,12 +47,14 @@ public class Menu {
 
     private String GetDateOrDayOfWeekFromUser(){
         Scanner in = new Scanner(System.in);
-        System.out.print("Введи дату или день недели: ");
+        System.out.println("\tДаты: "+parser.datesToWeather.keySet());
+        System.out.println("\tДни недели: "+parser.daysOfWeekToWeather.keySet());
+        System.out.print("\n\t> Введите дату или день недели: ");
         return in.nextLine();
     }
     private String GetCityFromUser(){
         Scanner in = new Scanner(System.in);
-        System.out.print("Введи город, чтобы узнать погоду: ");
+        System.out.print("\t> Введите город, чтобы узнать погоду: ");
         return in.nextLine();
     }
 
