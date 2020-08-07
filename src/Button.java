@@ -12,6 +12,10 @@ public class Button {
         return flag_exit;
     }
 
+    public void setFlag_exit(boolean flag_exit) {
+        this.flag_exit = flag_exit;
+    }
+
     private boolean flag_exit = false;
 
     public int getIdButton() {
@@ -42,10 +46,11 @@ public class Button {
 
 
     public void WriteDataToFileButton(){
-        parser.WriteDataOfWeatherToFile();
+       // TODO переход к методу который записывает в файл погоду
     }
 
     public void FaqButton(){
         System.out.println("FAQ - Информация");
+        System.out.println("");
     }
 }

@@ -13,16 +13,16 @@ import java.util.regex.Pattern;
 
 public class Parser {
 
-    private final String url = "https://world-weather.ru/pogoda/uzbekistan/";
     private String dataDays;
     private String temperatureAtMorning;
     private String temperatureAtNight;
 
-    private Map<String, String> cityToUrlCity = new HashMap<String, String>();
+    private final Map<String, String> cityToUrlCity = new HashMap<String, String>();
     public Map<String, String> datesToWeather = new HashMap<String, String>();
     public Map<String, String> daysOfWeekToWeather = new HashMap<String, String>();
 
     public void StartParseWeather(String cityName) throws Exception {
+        String url = "https://world-weather.ru/pogoda/uzbekistan/";
         GetUrlCities(url); // Заполняет cityToUrlCity.
         GetDataWeather(cityToUrlCity.get(cityName)); //Заполняет dataDays, temperatureAtMorning, temperatureAtNight
         SplitWeatherDataByDay(); // Заполняет datesToWeather, daysOfWeekToWeather
@@ -110,9 +110,5 @@ public class Parser {
         return  dataDays;
     }
 
-    public void WriteDataOfWeatherToFile(){
-        //TODO дописать этот метод
-        System.out.println("Идет запись в файл");
-    }
 }
 

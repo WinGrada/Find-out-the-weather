@@ -18,6 +18,9 @@ public class Menu {
             button.setIdButton(GetIdButtonFromUser());
             ProcessButtonId(button.getIdButton());
 
+            if(button.isFlag_exit()){ continue; }
+            if(button.getIdButton() != 1) { continue; }
+
             String dateOrDayOfWeek = GetDateOrDayOfWeekFromUser();
             if (dateOrDayOfWeek.length() == 2){
                 System.out.println(parser.daysOfWeekToWeather.get(dateOrDayOfWeek));
@@ -35,7 +38,10 @@ public class Menu {
             case 2 -> button.WriteDataToFileButton();
             case 3 -> button.ExitButton();
             case 4 -> button.FaqButton();
-            default -> System.out.println("Такой кнопки не существует");
+            default -> {
+                System.out.println("Такой кнопки не существует");
+                button.setFlag_exit(true);
+            }
         }
     }
 
